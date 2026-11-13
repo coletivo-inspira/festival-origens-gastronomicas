@@ -1,5 +1,5 @@
 # Festival Origens Gastronômicas — site
-
+# 1
 React 19 + TypeScript + Vite + Tailwind 4 + React Router 7 (mesma arquitetura do `nathalia-verri`).
 Site estático para GitHub Pages: no build, cada rota vira um HTML pronto (bom para o Google) e o React assume depois.
 
