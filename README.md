@@ -28,7 +28,7 @@ O topo muda sozinho conforme a data: contagem regressiva → "acontecendo agora"
 
 ## Fotos e vídeo
 
-Coloque os arquivos em `src/assets/media/` (veja o `LEIAME.md` lá). Eles aparecem sozinhos: `hero.mp4`/`hero.webp` no topo, `gallery/` na galeria e `expositores/<slug>.webp` nos cartões. A logo atual (`public/logo*.webp`, `favicon.png`) veio do Instagram em baixa resolução; troque pelos originais com os mesmos nomes.
+Coloque os arquivos em `src/assets/media/` (veja o `LEIAME.md` lá). Eles aparecem sozinhos: `hero.mp4`/`hero.webp` no topo, `gallery/` na galeria e `expositores/<slug>.webp` nos cartões. A logo (`public/logo.webp`, `logo-sm.webp`, `favicon.png`, `og.jpg`) foi gerada do arquivo em 1024 px enviado pelo organizador, com o fundo removido. Se vier um PNG/SVG transparente de origem, vale trocar.
 
 ## Variáveis (GitHub: Settings → Secrets and variables → Actions → **Variables**)
 
