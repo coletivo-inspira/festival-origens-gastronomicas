@@ -1,0 +1,47 @@
+@import "@fontsource/anton/latin-400.css";
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "tailwindcss";
+
+@theme {
+  --color-coal: #14100d;
+  --color-char: #1d1510;
+  --color-bark: #2a1b12;
+  --color-ember: #ee6a1c;
+  --color-flame: #c9301a;
+  --color-gold: #e0ac45;
+  --color-cream: #f6ebdd;
+  --color-paper: #f2e4cb;
+  --color-ink: #1a110a;
+
+  --font-display: 'Anton', 'Impact', sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+body { background: var(--color-coal); color: var(--color-cream); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; }
+::selection { background: var(--color-ember); color: #fff; }
+:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 2px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+/* textura de grelha, bem sutil */
+.grill {
+  background-image: repeating-linear-gradient(90deg, transparent 0 22px, rgba(246, 235, 221, 0.035) 22px 24px);
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { animation: marquee 32s linear infinite; }
+
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+.live-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee, .live-dot { animation: none; }
+}
+
+/* espaço para a barra inferior no celular */
+@media (max-width: 767px) { body { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); } }
