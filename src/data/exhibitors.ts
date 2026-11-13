@@ -1,15 +1,16 @@
-export type Category = 'Carnes e churrasco' | 'Culinária mineira' | 'Pescados' | 'Massas' | 'Doces e sobremesas' | 'Cafés e queijos' | 'Pastéis e petiscos';
+export type Category = 'Carnes e churrasco' | 'Culinária mineira' | 'Pescados' | 'Massas' | 'Doces e sobremesas' | 'Cafés e queijos' | 'Pastéis e petiscos' | 'Bebidas' | 'Gastronomia';
 
 export interface Exhibitor {
   name: string;
   category: Category;
-  specialties: string[];
+  specialties: string[]; // vazio = cardápio ainda não informado
+  stands?: number; // nº de estações/barracas (padrão 1)
   image?: string; // opcional: /images/expositores/<arquivo>
 }
 
 // Expositores já divulgados no Instagram. O festival informa "mais de 30 estações".
 export const exhibitors: Exhibitor[] = [
-  { name: 'Break Brasa', category: 'Carnes e churrasco', specialties: ['Roda gigante de costela', 'Cortes nobres na parrilha', 'Arroz de costela'] },
+  { name: 'Break Brasa', category: 'Carnes e churrasco', specialties: ['Roda gigante de costela', 'Cortes nobres na parrilha', 'Arroz de costela'], stands: 2 },
   { name: 'Masmorras Carnes', category: 'Carnes e churrasco', specialties: ['Hambúrguer de costela defumado', 'Cortes nobres na parrilha', 'Costelão gaúcho'] },
   { name: 'Rancho Gaúcho', category: 'Carnes e churrasco', specialties: ['Sanduíche de costela gaúcha no fogo de chão'] },
   { name: 'Churrascos na Chapa', category: 'Carnes e churrasco', specialties: ['Espetos', 'Fígado com jiló'] },
@@ -22,5 +23,16 @@ export const exhibitors: Exhibitor[] = [
   { name: 'Va Bene', category: 'Massas', specialties: ['Massas artesanais'] },
   { name: 'Vasto Sabores de Origens', category: 'Cafés e queijos', specialties: ['Cafés especiais', 'Queijos', 'Doces'] },
   { name: 'B&L Sweet Roll', category: 'Doces e sobremesas', specialties: ['Sorvete na chapa'] },
-  { name: 'Renata Neves Confeitaria', category: 'Doces e sobremesas', specialties: ['Festival de fatias', 'Fondue'] },
+  { name: 'Renata Neves Confeitaria', category: 'Doces e sobremesas', specialties: ['Festival de fatias', 'Fondue'], stands: 2 },
+  // Entraram pela lista da organização; categoria e cardápio a complementar quando houver detalhes.
+  { name: 'Acarajé do Kiel', category: 'Pastéis e petiscos', specialties: [] },
+  { name: 'Símil Gastro', category: 'Gastronomia', specialties: [] },
+  { name: 'Tacomtudo', category: 'Gastronomia', specialties: [] },
+  { name: 'Cozinha da Gi', category: 'Gastronomia', specialties: [] },
+  { name: 'Sabores da Fruta', category: 'Gastronomia', specialties: [] },
+  { name: 'Amor e Açaí', category: 'Doces e sobremesas', specialties: [] },
+  { name: 'Laut Chopp', category: 'Bebidas', specialties: ['Chopp'], stands: 4 },
+  { name: 'Chopp de Vinhos Wine', category: 'Bebidas', specialties: ['Chopp de vinho'], stands: 2 },
+  { name: 'Adega Wine', category: 'Bebidas', specialties: ['Vinhos'] },
+  { name: 'Bebidas Não Alcoólicas', category: 'Bebidas', specialties: ['Bebidas sem álcool'], stands: 2 },
 ];

@@ -43,9 +43,7 @@ jobs:
           VITE_GA_ID: ${{ vars.VITE_GA_ID }}
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true
+        uses: actions/configure-pages@v5
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -4,7 +4,7 @@ import Countdown from './Countdown';
 
 const LiveStatus = () => {
   const phase = usePhase();
-  const { current, next } = useNowNext();
+  const { current } = useNowNext();
   if (!useMounted()) return <div className="h-24" aria-hidden />;
 
   if (phase === 'before') {
@@ -30,18 +30,14 @@ const LiveStatus = () => {
       <p className="flex items-center gap-2 bg-flame px-4 py-1.5 text-xs font-bold uppercase tracking-widest">
         <span className="live-dot h-2 w-2 rounded-full bg-cream" /> Acontecendo agora
       </p>
-      <div className="grid grid-cols-2 divide-x-2 divide-cream/20">
-        <div className="p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-gold">Rolando</p>
-          <p className="mt-1 font-display text-2xl leading-none md:text-3xl">{current?.title ?? '—'}</p>
-          <p className="mt-1 text-xs text-cream/60">desde {current?.time}</p>
-        </div>
-        <div className="p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-gold">A seguir</p>
-          <p className="mt-1 font-display text-2xl leading-none md:text-3xl">{next?.title ?? 'Fim da programação'}</p>
-          {next && <p className="mt-1 text-xs text-cream/60">às {next.time}</p>}
-        </div>
+      <div className="p-4">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-gold">Rolando</p>
+        <p className="mt-1 font-display text-3xl leading-none md:text-4xl">{current?.title ?? '—'}</p>
+        {current && <p className="mt-1 text-xs text-cream/60">desde {current.time}</p>}
       </div>
+      <Link to="/programacao" className="flex items-center justify-between border-t-2 border-cream/20 px-4 py-3 text-sm font-semibold text-gold transition hover:bg-cream/10">
+        Acompanhe a programação completa do dia <span aria-hidden>→</span>
+      </Link>
     </div>
   );
 };

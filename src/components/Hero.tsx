@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { MapPin } from 'lucide-react';
-import { event } from '../data/event';
+import { MapPin, Navigation } from 'lucide-react';
+import { event, mapsUrl } from '../data/event';
+import { trackEvent } from '../lib/analytics';
 import { cn } from '../lib/cn';
 import { slots, getPhase, useNow } from '../lib/phase';
 import Logo from './Logo';
@@ -53,9 +53,10 @@ const Hero = () => {
 
             <div className="mt-6"><LiveStatus /></div>
 
-            <div className="mt-7 grid max-w-md grid-cols-2 gap-3">
-              <Link to="/programacao" className="flex h-14 items-center justify-center bg-ember font-display text-xl uppercase tracking-wide text-ink transition active:translate-y-0.5 hover:bg-gold">Programação</Link>
-              <Link to="/expositores" className="flex h-14 items-center justify-center border-2 border-cream font-display text-xl uppercase tracking-wide transition active:translate-y-0.5 hover:bg-cream hover:text-ink">Expositores</Link>
+            <div className="mt-7 max-w-md">
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('hero_local')} className="flex h-14 items-center justify-center gap-2 border-2 border-gold font-display text-xl uppercase tracking-wide text-gold transition active:translate-y-0.5 hover:bg-gold hover:text-ink">
+                <Navigation size={20} /> Ir para o local do evento
+              </a>
             </div>
           </div>
 

@@ -1,5 +1,5 @@
 # Festival Origens Gastronômicas — site
-# 1
+
 React 19 + TypeScript + Vite + Tailwind 4 + React Router 7 (mesma arquitetura do `nathalia-verri`).
 Site estático para GitHub Pages: no build, cada rota vira um HTML pronto (bom para o Google) e o React assume depois.
 
@@ -18,7 +18,7 @@ npm run build            # tsc + vite + HTML por rota + sitemap/robots/404/CNAME
 |---|---|
 | `event.ts` | datas, horários, local, hotel, **WhatsApp/e-mail (hoje `null`)** |
 | `schedule.ts` | programação musical por dia |
-| `exhibitors.ts` | expositores (hoje 14 de 30+) |
+| `exhibitors.ts` | expositores (hoje 24 de 30+) |
 | `editions.ts` | histórico de edições |
 | `faq.ts` | perguntas frequentes |
 | `legal.ts` | **dados do controlador (LGPD): preencher antes de publicar** |

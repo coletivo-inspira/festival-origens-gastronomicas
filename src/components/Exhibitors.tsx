@@ -46,7 +46,8 @@ const Exhibitors = ({ standalone = false, limit }: Props) => {
               <span className="absolute right-4 top-3 font-display text-4xl leading-none text-ink/15">{String(i + 1).padStart(2, '0')}</span>
               <p className="mb-2 inline-block bg-flame px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-cream">{e.category}</p>
               <h3 className="pr-10 text-[2rem] leading-[0.95] text-ink">{e.name}</h3>
-              <p className="mt-3 text-[15px] leading-snug text-ink/80">{e.specialties.join(' · ')}</p>
+              <p className="mt-3 text-[15px] leading-snug text-ink/80">{e.specialties.length ? e.specialties.join(' · ') : 'Cardápio em breve'}</p>
+              {(e.stands ?? 1) > 1 && <p className="mt-2 text-xs font-bold uppercase tracking-wider text-flame">{e.stands} estações</p>}
               </div>
             </li>
           ))}
