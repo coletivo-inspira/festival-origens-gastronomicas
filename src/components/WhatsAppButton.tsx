@@ -1,8 +1,8 @@
 import { FaWhatsapp } from 'react-icons/fa';
-import { contacts } from '../data/event';
+import { contacts } from '../data/site';
 import { trackEvent } from '../lib/analytics';
 
-// Só aparece quando o número oficial for informado em data/event.ts
+// Só aparece quando o número oficial for informado em data/site.ts
 const WhatsAppButton = () => {
   if (!contacts.whatsapp) return null;
   return (

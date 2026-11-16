@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaInstagram } from 'react-icons/fa';
-import { contacts, event } from '../data/event';
+import { contacts, site } from '../data/site';
 import Logo from './Logo';
 import { analyticsConfigured } from '../lib/analytics';
 import { openCookiePrefs } from '../lib/consent';
@@ -10,7 +10,7 @@ const Footer = () => (
     <div className="mx-auto flex max-w-6xl flex-col gap-8 px-5 md:flex-row md:items-center md:justify-between md:px-10">
       <div className="flex items-center gap-5">
         <Logo small className="h-20 w-auto" />
-        <p className="text-sm text-cream/70">{event.tagline}.<br />{event.city}/{event.state}</p>
+        <p className="text-sm text-cream/70">{site.tagline}.<br />Minas Gerais</p>
       </div>
       <div className="flex flex-col gap-3 text-base font-semibold">
         <a href={contacts.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-gold"><FaInstagram size={20} /> {contacts.instagramHandle}</a>

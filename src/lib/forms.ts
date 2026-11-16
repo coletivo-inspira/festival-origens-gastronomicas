@@ -1,4 +1,4 @@
-import { contacts } from '../data/event';
+import { contacts } from '../data/site';
 
 const endpoint = import.meta.env.VITE_FORM_ENDPOINT as string | undefined;
 

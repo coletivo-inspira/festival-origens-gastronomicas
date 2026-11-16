@@ -1,11 +1,10 @@
 import Layout from '../App';
 import ContactForm from '../components/ContactForm';
 import Section from '../components/Section';
-import { event } from '../data/event';
 
 const BecomeExhibitor = () => (
   <Layout>
-    <Section kicker="Para marcas e cozinhas" title="Seja expositor ou patrocinador" intro={`Leve sua cozinha ou marca para um festival com mais de ${event.stations} estações gastronômicas e entrada gratuita. Conte sobre você e entraremos em contato.`} className="pt-28 md:pt-36">
+    <Section kicker="Para marcas e cozinhas" title="Seja expositor ou patrocinador" intro={`Leve sua cozinha ou marca para um festival com muitas estações gastronômicas. Conte sobre você e entraremos em contato.`} className="pt-28 md:pt-36">
       <div className="max-w-xl">
         <ContactForm
           consent="contact"

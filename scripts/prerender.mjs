@@ -9,7 +9,13 @@ const dist = path.join(root, 'dist');
 const env = loadEnv('production', root, 'VITE_');
 const siteUrl = (env.VITE_SITE_URL || '').trim().replace(/\/+$/, '');
 
+// "Agora" do build: o HTML é gerado para este instante e o navegador começa com o mesmo valor (hidratação sem erro).
+const buildNow = process.env.PRERENDER_NOW ? new Date(process.env.PRERENDER_NOW).getTime() : Date.now(); // PRERENDER_NOW só para testes
+globalThis.__BUILD_NOW__ = buildNow;
+
 const mod = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href);
+const state = mod.getSiteState(buildNow);
+const routes = mod.getRoutes(state);
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -33,7 +39,8 @@ function headFor(meta, { jsonld = false } = {}) {
     '<meta property="og:image:width" content="1200" />',
     '<meta property="og:image:height" content="630" />',
     '<meta name="twitter:card" content="summary_large_image" />',
-    jsonld ? `<script type="application/ld+json">${JSON.stringify(mod.buildJsonLd(siteUrl)).replace(/</g, '\\u003c')}</script>` : '',
+    `<script>window.__BUILD_NOW__=${buildNow}</script>`,
+    jsonld ? `<script type="application/ld+json">${JSON.stringify(mod.buildJsonLd(siteUrl, state)).replace(/</g, '\\u003c')}</script>` : '',
   ];
   return tags.filter(Boolean).join('\n    ');
 }
@@ -46,13 +53,13 @@ function write(file, html) {
 const page = (meta, url, opts) =>
   template.replace('<!--app-head-->', headFor(meta, opts)).replace('<!--app-html-->', mod.render(url));
 
-for (const meta of mod.routes) {
+for (const meta of routes) {
   const out = meta.path === '/' ? path.join(dist, 'index.html') : path.join(dist, meta.path, 'index.html');
   write(out, page(meta, meta.path, { jsonld: meta.path === '/' }));
 }
 write(path.join(dist, '404.html'), page(mod.notFoundMeta, '/pagina-nao-encontrada'));
 
-const indexable = mod.routes.filter((r) => !r.noindex);
+const indexable = routes.filter((r) => !r.noindex);
 const today = new Date().toISOString().slice(0, 10);
 if (siteUrl) {
   write(path.join(dist, 'sitemap.xml'),
@@ -64,7 +71,7 @@ if (siteUrl && !/\.github\.io$/.test(new URL(siteUrl).hostname)) write(path.join
 
 fs.rmSync(path.join(root, 'dist-ssr'), { recursive: true, force: true });
 
-console.log(`\nprerender: ${mod.routes.length} páginas + 404${siteUrl ? ' + sitemap' : ''}`);
+console.log(`\nprerender (${state.mode}${state.edition ? `: ${state.edition.id}` : ''}): ${routes.length} páginas + 404${siteUrl ? ' + sitemap' : ''}`);
 if (!siteUrl) console.warn('⚠️  VITE_SITE_URL não definido: sem canonical, sitemap, CNAME e og:image absoluto. Defina o domínio (ex.: https://seudominio.com.br).');
 if (!mod.controllerComplete) console.warn('⚠️  src/data/legal.ts ainda tem campos entre colchetes (razão social, CNPJ, endereço, e-mail do titular). Preencha antes de publicar.');
 if (!env.VITE_FORM_ENDPOINT) console.warn('⚠️  VITE_FORM_ENDPOINT não definido: os formulários não gravam na planilha (usam o fallback Instagram/WhatsApp).');

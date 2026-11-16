@@ -1,6 +1,6 @@
-const items = ['Entrada gratuita', '+30 estações gastronômicas', 'Chopp Läut', 'Shows ao vivo', 'Espaço kids', 'Estacionamento no local'];
+interface Props { items: string[] }
 
-const Marquee = () => (
+const Marquee = ({ items }: Props) => (
   <div className="overflow-hidden bg-ember py-3 text-ink" aria-label={items.join(', ')}>
     <div className="marquee flex w-max" aria-hidden>
       {[0, 1].map((k) => (

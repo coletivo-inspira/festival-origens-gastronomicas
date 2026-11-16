@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Plus } from 'lucide-react';
-import { faq } from '../data/faq';
 import { cn } from '../lib/cn';
+import { buildFaq } from '../lib/faq';
+import { useSite } from '../lib/phase';
 import Section from './Section';
 
 const Faq = () => {
+  const { mode, edition, featured, past } = useSite();
+  const items = useMemo(() => buildFaq({ mode, edition, featured, past }), [mode, edition, featured, past]);
   const [open, setOpen] = useState<number | null>(0);
   return (
     <Section id="faq" kicker="Informações úteis" title="O que você precisa saber" tone="coal">
       <div className="max-w-3xl border-t-2 border-cream/30">
-        {faq.map((item, i) => {
+        {items.map((item, i) => {
           const isOpen = open === i;
           return (
             <div key={item.q} className="border-b-2 border-cream/15">

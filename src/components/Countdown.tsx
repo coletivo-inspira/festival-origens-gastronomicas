@@ -1,4 +1,4 @@
-import { eventStartMs, useNow } from '../lib/phase';
+import { useNow } from '../lib/phase';
 
 const Cell = ({ value, label }: { value: number; label: string }) => (
   <div className="flex-1 border-2 border-cream/30 px-2 py-2 text-center">
@@ -7,8 +7,8 @@ const Cell = ({ value, label }: { value: number; label: string }) => (
   </div>
 );
 
-const Countdown = () => {
-  const s = Math.floor(Math.max(0, eventStartMs - useNow()) / 1000);
+const Countdown = ({ to }: { to: string }) => {
+  const s = Math.floor(Math.max(0, new Date(to).getTime() - useNow()) / 1000);
   return (
     <div role="timer" aria-label="Contagem regressiva para o festival" className="flex max-w-sm gap-2">
       <Cell value={Math.floor(s / 86400)} label="dias" />

@@ -12,19 +12,16 @@ npm run dev
 npm run build            # tsc + vite + HTML por rota + sitemap/robots/404/CNAME
 ```
 
-## Onde editar o conteúdo (`src/data/`)
+## Onde editar o conteúdo
 
 | Arquivo | O que controla |
 |---|---|
-| `event.ts` | datas, horários, local, hotel, **WhatsApp/e-mail (hoje `null`)** |
-| `schedule.ts` | programação musical por dia |
-| `exhibitors.ts` | expositores (hoje 24 de 30+) |
-| `editions.ts` | histórico de edições |
-| `faq.ts` | perguntas frequentes |
-| `legal.ts` | **dados do controlador (LGPD): preencher antes de publicar** |
-| `src/seo.ts` | título/descrição de cada página |
+| `src/data/editions/*.ts` | **uma edição por arquivo** (datas, local, programação, expositores, hotel). Veja `docs/NOVA-EDICAO.md` |
+| `src/data/site.ts` | dados permanentes: tagline, textos, contatos (WhatsApp/e-mail hoje `null`), perguntas gerais |
+| `src/data/legal.ts` | **dados do controlador (LGPD): preencher antes de publicar** |
+| `src/seo.ts` | título/descrição das páginas (gerados a partir das edições) |
 
-O topo muda sozinho conforme a data: contagem regressiva → "acontecendo agora" → "obrigado / próxima edição".
+O site se ajusta **sozinho pela data**: próxima edição → acontecendo agora → site institucional pós-evento. Para publicar uma nova edição basta criar o arquivo dela e dar push.
 
 ## Fotos e vídeo
 
@@ -51,4 +48,4 @@ Leia `docs/LGPD-CHECKLIST.md` (o que o site faz e o que o organizador precisa fa
 
 ## Rotas
 
-`/` · `/programacao` · `/expositores` · `/edicoes` · `/seja-expositor` · `/privacidade` · `/links` (bio do Instagram, não indexada) · 404
+`/` · `/programacao` · `/expositores` · `/edicoes` · `/edicoes/<id>` · `/seja-expositor` · `/privacidade` · `/links` (bio do Instagram, não indexada) · 404

@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import SchedulePage from './pages/SchedulePage';
 import ExhibitorsPage from './pages/ExhibitorsPage';
 import EditionsPage from './pages/EditionsPage';
+import EditionPage from './pages/EditionPage';
 import BecomeExhibitor from './pages/BecomeExhibitor';
 import BioLink from './pages/BioLink';
 import PrivacyPage from './pages/PrivacyPage';
@@ -15,6 +16,7 @@ const AppRoutes = () => (
     <Route path="/programacao" element={<SchedulePage />} />
     <Route path="/expositores" element={<ExhibitorsPage />} />
     <Route path="/edicoes" element={<EditionsPage />} />
+    <Route path="/edicoes/:id" element={<EditionPage />} />
     <Route path="/seja-expositor" element={<BecomeExhibitor />} />
     <Route path="/privacidade" element={<PrivacyPage />} />
     <Route path="/links" element={<BioLink />} />

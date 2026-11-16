@@ -10,6 +10,7 @@ export const render = (url: string) =>
     </StaticRouter>,
   );
 
-export { routes, notFoundMeta, SITE_NAME } from './seo';
+export { getRoutes, notFoundMeta, SITE_NAME } from './seo';
 export { buildJsonLd } from './lib/jsonld';
+export { getSiteState } from './lib/editions';
 export { controllerComplete } from './data/legal';

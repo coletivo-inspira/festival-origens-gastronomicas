@@ -13,3 +13,7 @@ export const gallery = entries.filter((e) => e.rel.startsWith('gallery/')).sort(
 
 export const slug = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const exhibitorImage = (name: string) => byPrefix(new RegExp(`^expositores/${slug(name)}\\.(webp|jpe?g|png|avif)$`));
+
+/** Fotos de uma edição específica: src/assets/media/edicoes/<id-da-edicao>/*.webp */
+export const editionGallery = (id: string) =>
+  entries.filter((e) => e.rel.startsWith(`edicoes/${id}/`)).sort((a, b) => a.rel.localeCompare(b.rel)).map((e) => e.url);

@@ -5,6 +5,10 @@ on:
   push:
     branches: ['main']
   workflow_dispatch:
+  # Reconstrói todo dia (06:00 UTC = 03:00 em Brasília) para o HTML refletir a data: o site vira "pós-evento"
+  # ou "próxima edição" sozinho, sem precisar de commit.
+  schedule:
+    - cron: '0 6 * * *'
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:

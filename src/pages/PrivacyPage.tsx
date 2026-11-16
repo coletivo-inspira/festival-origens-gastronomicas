@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import Layout from '../App';
 import { analyticsConfigured } from '../lib/analytics';
 import { legal } from '../data/legal';
-import { event, contacts } from '../data/event';
+import { contacts, site } from '../data/site';
 import { openCookiePrefs } from '../lib/consent';
 
 const H = ({ children }: { children: ReactNode }) => <h2 className="mb-3 mt-10 text-3xl leading-none text-gold md:text-4xl">{children}</h2>;
@@ -18,7 +18,7 @@ const PrivacyPage = () => {
         <p className="mt-3 text-sm text-cream/60">Versão {legal.policyVersion} · atualizada em {legal.updatedAt}</p>
 
         <H>1. Quem é o responsável pelos seus dados</H>
-        <P>O responsável (controlador) pelos dados tratados neste site é <strong>{c.name}</strong>, CNPJ {c.cnpj}, com endereço em {c.address}, organizador do {event.name}.</P>
+        <P>O responsável (controlador) pelos dados tratados neste site é <strong>{c.name}</strong>, CNPJ {c.cnpj}, com endereço em {c.address}, organizador do {site.name}.</P>
         <P>Para qualquer assunto sobre seus dados pessoais, escreva para <strong>{c.privacyEmail}</strong>.</P>
 
         <H>2. Quais dados coletamos</H>

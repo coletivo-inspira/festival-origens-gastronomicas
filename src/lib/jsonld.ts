@@ -1,34 +1,35 @@
-import { contacts, event } from '../data/event';
-import { schedule } from '../data/schedule';
+import { contacts, site } from '../data/site';
 import { SITE_NAME } from '../seo';
+import { getSlots, type SiteState } from './editions';
 
-/** Dados estruturados para o Google (evento + organização). Atualize `event.ts` a cada edição. */
-export function buildJsonLd(siteUrl: string) {
-  const performers = Array.from(new Set(schedule.flatMap((d) => d.shows).filter((s) => s.kind === 'show' && s.title !== 'DJ').map((s) => s.title)));
+/** Dados estruturados para o Google: organização sempre; evento somente quando existe uma edição a caminho/acontecendo. */
+export function buildJsonLd(siteUrl: string, s: SiteState) {
   const url = siteUrl ? `${siteUrl}/` : undefined;
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Event',
-        name: `${event.edition} — ${SITE_NAME}`,
-        description: `${event.tagline}. Mais de ${event.stations} estações gastronômicas, shows ao vivo e entrada gratuita.`,
-        startDate: event.start,
-        endDate: event.end,
-        eventStatus: 'https://schema.org/EventScheduled',
-        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-        isAccessibleForFree: true,
-        ...(url ? { url, image: [`${siteUrl}/og.jpg`] } : {}),
-        location: {
-          '@type': 'Place',
-          name: event.venue.name,
-          address: { '@type': 'PostalAddress', streetAddress: event.venue.address, addressLocality: event.city, addressRegion: event.state, addressCountry: 'BR' },
-        },
-        offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL', availability: 'https://schema.org/InStock', ...(url ? { url } : {}) },
-        performer: performers.map((name) => ({ '@type': 'PerformingGroup', name })),
-        organizer: { '@type': 'Organization', name: SITE_NAME, url: contacts.instagram },
+  const graph: Record<string, unknown>[] = [
+    { '@type': 'Organization', name: SITE_NAME, description: site.tagline, ...(url ? { url, logo: `${siteUrl}/logo.webp` } : {}), sameAs: [contacts.instagram, contacts.threads] },
+  ];
+  const e = s.edition;
+  if (e) {
+    const performers = Array.from(new Set(getSlots(e).filter((x) => x.kind === 'show' && x.title !== 'DJ').map((x) => x.title)));
+    graph.push({
+      '@type': 'Event',
+      name: `${e.title} — ${SITE_NAME}`,
+      description: e.summary ?? `${SITE_NAME}: ${e.title}.`,
+      startDate: e.start,
+      endDate: e.end,
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      ...(e.free ? { isAccessibleForFree: true } : {}),
+      ...(url ? { url, image: [`${siteUrl}/og.jpg`] } : {}),
+      location: {
+        '@type': 'Place',
+        name: e.venue.name,
+        address: { '@type': 'PostalAddress', ...(e.venue.address ? { streetAddress: e.venue.address } : {}), addressLocality: e.venue.city, addressRegion: e.venue.state, addressCountry: 'BR' },
       },
-      { '@type': 'Organization', name: SITE_NAME, ...(url ? { url, logo: `${siteUrl}/logo.webp` } : {}), sameAs: [contacts.instagram, contacts.threads] },
-    ],
-  };
+      ...(e.free ? { offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL', availability: 'https://schema.org/InStock', ...(url ? { url } : {}) } } : {}),
+      ...(performers.length ? { performer: performers.map((name) => ({ '@type': 'PerformingGroup', name })) } : {}),
+      organizer: { '@type': 'Organization', name: SITE_NAME, url: contacts.instagram },
+    });
+  }
+  return { '@context': 'https://schema.org', '@graph': graph };
 }
